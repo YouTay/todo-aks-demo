@@ -30,6 +30,7 @@ jobs:
             --name ${{ secrets.AKS_NAME }} \
             --overwrite-existing
 
-      - name: Deploy to AKS
+           - name: Deploy to AKS
         run: |
           kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
