@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Youssef Tayachi – Azure Portfolio Demo App</title>
+  <style>
+    body { font-family: system-ui, Arial; margin: 0; background: #0b1220; color: #e5e7eb; }
+    .wrap { max-width: 860px; margin: 40px auto; padding: 0 16px; }
+    .card { background: #121a2b; border: 1px solid #23314f; border-radius: 16px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    .sub { color: #9ca3af; margin: 0 0 18px; }
+    .row { display: flex; gap: 10px; }
+    input { flex: 1; padding: 12px 12px; border-radius: 12px; border: 1px solid #2b3b61; background: #0b1220; color: #e5e7eb; }
+    button { padding: 12px 14px; border-radius: 12px; border: 1px solid #2b3b61; background: #2563eb; color: white; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    ul { list-style: none; padding: 0; margin: 18px 0 0; }
+    li { padding: 10px 12px; border: 1px solid #23314f; border-radius: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.02); }
+    .meta { display:flex; gap:12px; align-items:center; margin-top:12px; color:#9ca3af; font-size:12px;}
+    .pill { padding: 4px 8px; border-radius: 999px; border: 1px solid #23314f; }
+    .ok { color: #34d399; }
+    .bad { color: #f87171; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Youssef Tayachi – Azure Portfolio Demo App</h1>
+      <p class="sub">AKS • ACR • GitHub Actions • Flask</p>
+
+      <div class="row">
+        <input id="task" placeholder="New todo…" />
+        <button id="addBtn">Add</button>
+      </div>
+
+      <ul id="list"></ul>
+
+      <div class="meta">
+        <span class="pill">API: <span id="apiState">checking…</span></span>
+        <span class="pill">Endpoint: <span id="endpoint"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const endpointEl = document.getElementById("endpoint");
+    endpointEl.textContent = window.location.origin;
+
+    const apiState = document.getElementById("apiState");
+    const list = document.getElementById("list");
+    const task = document.getElementById("task");
+    const addBtn = document.getElementById("addBtn");
+
+    async function health() {
+      try {
+        const r = await fetch("/health");
+        if (!r.ok) throw new Error();
+        apiState.textContent = "ok";
+        apiState.className = "ok";
+      } catch {
+        apiState.textContent = "down";
+        apiState.className = "bad";
+      }
+    }
+
+    function render(items) {
+      list.innerHTML = "";
+      items.forEach((t) => {
+        const li = document.createElement("li");
+        li.textContent = t.task;
+        list.appendChild(li);
+      });
+    }
+
+    async function loadTodos() {
+      const r = await fetch("/todos");
+      const data = await r.json();
+      render(data);
+    }
+
+    async function addTodo() {
+      const val = task.value.trim();
+      if (!val) return;
+      addBtn.disabled = true;
+      await fetch("/todos", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({task: val})
+      });
+      task.value = "";
+      await loadTodos();
+      addBtn.disabled = false;
+    }
+
+    addBtn.addEventListener("click", addTodo);
+    task.addEventListener("keydown", (e) => { if (e.key === "Enter") addTodo(); });
+
+    health();
+    loadTodos();
+  </script>
+</body>
+</html>
