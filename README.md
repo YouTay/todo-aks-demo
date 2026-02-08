@@ -1,109 +1,97 @@
-Azure AKS Portfolio Demo – Cloud Native Todo App
-Overview
+# Azure AKS Portfolio Project
 
-This project demonstrates an end-to-end Azure cloud deployment using Kubernetes, CI/CD automation, container registry integration and monitoring.
+## Cloud-Native Todo Application on Microsoft Azure
 
-Goal: prove practical Azure platform engineering skills rather than complex application logic.
+This project demonstrates an end-to-end Azure cloud deployment using Kubernetes, containerization, CI/CD automation, and monitoring.
+Focus: **Azure operations + DevOps workflow**, not app complexity.
 
-Application
+---
 
-Simple Python Flask Todo API with browser UI.
+## Application
 
-Features:
+A lightweight **Python Flask** Todo API with a simple browser UI.
 
-REST API (/todos, /health)
+**Endpoints**
 
-Web UI for demo purposes
+* `GET /health` – health check
+* `GET /todos` – list todos
+* `POST /todos` – add todo
 
-Containerized deployment
+### Application UI
 
-Public endpoint via AKS LoadBalancer
+![Application UI](screenshots/app-ui.png)
 
-screenshots/app-ui.png
+---
 
+## CI/CD Pipeline (GitHub Actions)
 
+Pipeline on every push to `main`:
 
+1. Build container image
+2. Push image to **Azure Container Registry (ACR)**
+3. Deploy to **Azure Kubernetes Service (AKS)** using `kubectl`
 
-CI/CD Pipeline
+### GitHub Actions Pipeline
 
-GitHub Actions pipeline automatically:
+![GitHub Actions Pipeline](screenshots/github-actions.png)
 
-Builds container image
+---
 
-Pushes image to Azure Container Registry (ACR)
+## Kubernetes Deployment (AKS)
 
-Deploys updated image to AKS
+AKS runs the workload as Kubernetes resources:
 
-screenshots/github-actions.png
+* **Deployment** (`todo-api`)
+* **Service (LoadBalancer)** exposing the app publicly
+* Rolling updates triggered via CI/CD
 
+### AKS Workloads View
 
+![AKS Workloads](screenshots/aks-workloads.png)
 
+---
 
-Kubernetes Deployment (AKS)
+## Monitoring & Observability
 
-Azure Kubernetes Service used for orchestration.
+Operational visibility via **Azure Monitor / Container Insights**:
 
-Key aspects:
+* Node + pod metrics
+* Cluster health and events
+* Centralized logging (Log Analytics workspace)
 
-Deployment + Service configuration
+### Monitoring Overview
 
-Public LoadBalancer exposure
+![Monitoring Overview](screenshots/monitoring.png)
 
-Rolling updates via CI/CD
+---
 
-Container runtime inside managed cluster
+## Architecture Flow
 
-screenshots/aks-workloads.png
+**GitHub → GitHub Actions → ACR → AKS → Public LoadBalancer IP → Azure Monitor**
 
+---
 
+## Skills Demonstrated
 
+**Azure**
 
-Monitoring & Observability
+* AKS (cluster operations, workloads, services)
+* ACR (container registry integration)
+* Azure Monitor / Log Analytics (observability)
 
-Azure Monitor Container Insights enabled:
+**DevOps**
 
-Pod/container metrics
+* GitHub Actions CI/CD
+* Automated build + deploy pipeline for Kubernetes
 
-Logs via Log Analytics
+**Kubernetes**
 
-Cluster health visibility
+* Deployments, Services, rolling updates
+* Basic operational troubleshooting via logs/metrics
 
-screenshots/monitoring.png
+---
 
+## Author
 
-
-
-Architecture Summary
-
-GitHub → CI/CD Pipeline → Azure Container Registry → AKS Deployment → Public Endpoint → Azure Monitor
-
-Skills Demonstrated
-
-Azure:
-
-Azure Kubernetes Service (AKS)
-
-Azure Container Registry (ACR)
-
-Azure Monitor / Log Analytics
-
-DevOps:
-
-GitHub Actions CI/CD
-
-Container image automation
-
-Cloud deployment lifecycle
-
-Cloud Engineering:
-
-Kubernetes operations
-
-Observability setup
-
-Production-style deployment flow
-
-Author
-
-Youssef Tayachi
+**Youssef Tayachi**
 Azure / Cloud Engineering Portfolio Project
