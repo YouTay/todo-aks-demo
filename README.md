@@ -1,81 +1,109 @@
-# Azure AKS Portfolio Demo – Todo App
+Azure AKS Portfolio Demo – Cloud Native Todo App
+Overview
 
-## Overview
+This project demonstrates an end-to-end Azure cloud deployment using Kubernetes, CI/CD automation, container registry integration and monitoring.
 
-This project demonstrates a cloud-native application deployed end-to-end on Microsoft Azure using Kubernetes, CI/CD automation and monitoring.
+Goal: prove practical Azure platform engineering skills rather than complex application logic.
 
-The goal was not application complexity, but showcasing practical Azure platform engineering skills including containerization, Kubernetes operations and DevOps automation.
+Application
 
----
+Simple Python Flask Todo API with browser UI.
 
-## Architecture
+Features:
 
-* Python Flask Todo API with simple web UI
-* Containerized application (Docker)
-* Azure Container Registry (ACR) for image storage
-* Azure Kubernetes Service (AKS) for orchestration
-* GitHub Actions CI/CD pipeline
-* Azure Monitor / Log Analytics for observability
+REST API (/todos, /health)
 
-Deployment flow:
+Web UI for demo purposes
 
-GitHub → Container Build → ACR → AKS Deployment → Public LoadBalancer Endpoint
+Containerized deployment
 
----
+Public endpoint via AKS LoadBalancer
 
-## Key Azure Skills Demonstrated
+screenshots/app-ui.png
 
-### Kubernetes / AKS
 
-* Deployment and service configuration
-* Rolling updates via CI/CD
-* Public service exposure (LoadBalancer)
-* Cluster monitoring and diagnostics
 
-### DevOps / CI-CD
 
-* GitHub Actions pipeline:
+CI/CD Pipeline
 
-  * Automated container build
-  * Push to Azure Container Registry
-  * Automated AKS deployment
+GitHub Actions pipeline automatically:
 
-### Observability
+Builds container image
 
-* Azure Monitor Container Insights enabled
-* Centralized container logging
-* Metrics visibility for pods and nodes
+Pushes image to Azure Container Registry (ACR)
 
-### Cloud Architecture
+Deploys updated image to AKS
 
-* Managed container registry integration
-* Kubernetes workload operation
-* Infrastructure lifecycle management
+screenshots/github-actions.png
 
----
 
-## Live Application
 
-The app exposes:
 
-* Todo REST API endpoints
-* Simple browser UI
-* Health endpoint for monitoring readiness
+Kubernetes Deployment (AKS)
 
-Designed primarily as a Kubernetes/Azure operations showcase.
+Azure Kubernetes Service used for orchestration.
 
----
+Key aspects:
 
-## Lessons Learned
+Deployment + Service configuration
 
-* Azure AKS operational workflows
-* CI/CD automation for container workloads
-* Monitoring and troubleshooting Kubernetes applications
-* Cloud resource cost awareness and lifecycle management
+Public LoadBalancer exposure
 
----
+Rolling updates via CI/CD
 
-## Author
+Container runtime inside managed cluster
+
+screenshots/aks-workloads.png
+
+
+
+
+Monitoring & Observability
+
+Azure Monitor Container Insights enabled:
+
+Pod/container metrics
+
+Logs via Log Analytics
+
+Cluster health visibility
+
+screenshots/monitoring.png
+
+
+
+
+Architecture Summary
+
+GitHub → CI/CD Pipeline → Azure Container Registry → AKS Deployment → Public Endpoint → Azure Monitor
+
+Skills Demonstrated
+
+Azure:
+
+Azure Kubernetes Service (AKS)
+
+Azure Container Registry (ACR)
+
+Azure Monitor / Log Analytics
+
+DevOps:
+
+GitHub Actions CI/CD
+
+Container image automation
+
+Cloud deployment lifecycle
+
+Cloud Engineering:
+
+Kubernetes operations
+
+Observability setup
+
+Production-style deployment flow
+
+Author
 
 Youssef Tayachi
 Azure / Cloud Engineering Portfolio Project
